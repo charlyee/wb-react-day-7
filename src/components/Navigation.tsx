@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 interface INavigationProps {
 }
@@ -27,20 +28,26 @@ export default class Navigation extends React.Component<INavigationProps, INavig
     {
         console.log( '"componentWillUnmount()" ran.' );
     }
-    testUpdate()
-    {
+    testUpdate = () => {
+        // setState will trigger: componentDidUpdate() !!!
         this.setState( {updated: !this.state.updated} );
+    }
+    removeMe = () => {
+        const navigation: HTMLElement | null = document.getElementById( 'navigation' );
+        if ( navigation !== null )
+            ReactDOM.unmountComponentAtNode( navigation );
+        // Unmounting this component will trigger: componentWillUnmount() !!!
     }
     render ()
     {
         console.log( 'Render ran.' );
         return (
-            <nav>
+            <nav id="navigation">
                 <h2>Website Navigation</h2>
                 <ul>
                     <li><a href="#">Home</a></li>
                     <li><a href="#" onClick={this.testUpdate}>About</a></li>
-                    <li><a href="#">Services</a></li>
+                    <li><a href="#" onClick={this.removeMe}>Services</a></li>
                     <li><a href="#">Contact</a></li>
                 </ul>
             </nav>
