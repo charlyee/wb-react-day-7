@@ -35,7 +35,7 @@ class App extends React.Component {
             </ul>
           </nav>
           <Switch>
-            <Route path="/">
+            <Route exact path="/">
               <Home />
               {/* You can place other elements/classes/components/tags here too! */}
             </Route>
